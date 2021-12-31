@@ -1,0 +1,13 @@
+\ProvidesClass{openapidoc}[2022/05/03 OpenAPI LaTeX class]
+\NeedsTeXFormat{LaTeX2e}
+\LoadClass{article}
+
+\newcommand{\headlinecolor}{\normalcolor}
+\RequirePackage{xcolor}
+\definecolor{slcolor}{HTML}{882B21}
+
+\DeclareOption{onecolumn}{\OptionNotUsed}
+\DeclareOption{green}{\renewcommand{\headlinecolor}{\color{green}}}
+\DeclareOption{red}{\renewcommand{\headlinecolor}{\color{slcolor}}}
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
+\ProcessOptions\relax

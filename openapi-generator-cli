@@ -1,0 +1,18 @@
+#!/bin/sh
+
+#OPENAPI_GENERATOR_IMAGE=${OPENAPI_GENERATOR_IMAGE:-openapitools/openapi-generator-cli}
+#OPENAPI_GENERATOR_VERSION=${OPENAPI_GENERATOR_VERSION:-v5.3.1}
+
+OPENAPI_GENERATOR_IMAGE=${OPENAPI_GENERATOR_IMAGE:-docker.io/phylocknet/openapi-generator-extcli}
+OPENAPI_GENERATOR_VERSION=${OPENAPI_GENERATOR_VERSION:-latest}
+
+OPENAPI_GENERATOR_DOCKER=${OPENAPI_GENERATOR_DOCKER:-${OPENAPI_GENERATOR_IMAGE}:${OPENAPI_GENERATOR_VERSION}}
+
+echo "Running in (${OPENAPI_GENERATOR_DOCKER})"
+
+docker run --rm \
+    --workdir ${PWD} \
+    -v ${PWD}:${PWD} \
+    --rm --volume /etc/passwd:/etc/passwd:ro --volume /etc/group:/etc/group:ro --user $(id -u):$(id -g) \
+    ${OPENAPI_GENERATOR_DOCKER} "$@"
+

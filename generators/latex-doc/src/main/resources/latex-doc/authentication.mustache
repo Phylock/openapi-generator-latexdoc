@@ -1,0 +1,24 @@
+\section{Scopes}
+
+<%#authMethods%><%#isBasic%>
+
+<%/isBasic%><%#isOAuth%>
+isOAuth
+<%/isOAuth%><%#isApiKey%>
+isApiKey
+<%/isApiKey%><%#isBasicBasic%>
+isBasicBasic
+<%/isBasicBasic%><%#isHttpSignature%>
+isHttpSignature
+<%/isHttpSignature%><%#isBasicBearer%>
+isBasicBearer
+<%/isBasicBearer%>
+
+\begin{tabular}{r r}
+<%#scopes%>
+<%scope%> & <%description%> \\
+<%/scopes%>
+\end{tabular}
+
+<%.%>
+<%/authMethods%>

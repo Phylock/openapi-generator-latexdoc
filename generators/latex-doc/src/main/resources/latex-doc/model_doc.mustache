@@ -1,0 +1,30 @@
+<%#models%>
+<%#model%>
+\subsubsection{<%classname%>} \label{sec:models:<%classname%>}
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ |l|l|l|l| } 
+ \hline
+ Name & Type & Description & Notes \\
+\hline
+<%#parent%>
+<%#parentVars%>
+<%name%><%#required%>*<%/required%> & <%#isPrimitiveType%><%dataType%><%/isPrimitiveType%><%^isPrimitiveType%><%dataType%>(<%complexType%>)<%/isPrimitiveType%> & <%description%> & <%#readOnly%>[readonly] <%/readOnly%><%#defaultValue%>[default to <%.%>]<%/defaultValue%> \\
+<%/parentVars%>
+<%/parent%>
+<%#vars%><%name%><%#required%>*<%/required%> & <%#isPrimitiveType%><%dataType%><%/isPrimitiveType%><%^isPrimitiveType%><%dataType%>(<%complexType%>)<%/isPrimitiveType%> & <%description%> & <%#readOnly%>[readonly] <%/readOnly%><%#defaultValue%>[default to <%.%>]<%/defaultValue%> \\
+<%/vars%>
+\hline
+\end{tabular}
+\end{center}
+\caption{List of parameters available for <%classname%>}
+\end{table}
+
+\textbf{Schema}
+\begin{lstlisting}[language=json, title={A Schema of the <%classname%>}]
+<%modelJson%>
+\end{lstlisting}
+
+    <%/model%>
+<%/models%>
