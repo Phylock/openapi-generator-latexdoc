@@ -27,20 +27,25 @@ import io.swagger.v3.oas.models.Operation;
 import io.swagger.v3.oas.models.media.ArraySchema;
 import io.swagger.v3.oas.models.media.Schema;
 import io.swagger.v3.oas.models.servers.Server;
+import java.io.File;
+import java.io.IOException;
 import org.openapitools.codegen.utils.ModelUtils;
 
 import java.util.*;
+import org.apache.commons.lang3.StringUtils;
 import org.openapitools.codegen.templating.mustache.UppercaseLambda;
 
 import static org.openapitools.codegen.utils.StringUtils.escape;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
-
+    private final Logger LOGGER = LoggerFactory.getLogger(LatexDocCodegen.class);
     protected String invokerPackage = "org.openapitools.client";
     protected String groupId = "org.openapitools";
     protected String artifactId = "openapi-client";
     protected String artifactVersion = "1.0.0";
-    
+
     public LatexDocCodegen() {
         super();
 
@@ -81,19 +86,25 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
         additionalProperties.put(CodegenConstants.ARTIFACT_VERSION, artifactVersion);
 
         additionalProperties.put("uppercase", new UppercaseLambda());
-        
+
         supportingFiles.add(new SupportingFile("openapidoc.mustache", "", "openapidoc.cls"));
         supportingFiles.add(new SupportingFile("index.mustache", "", "index.tex"));
         supportingFiles.add(new SupportingFile("authentication.mustache", "", "authentication.tex"));
         supportingFiles.add(new SupportingFile("operations.mustache", "", "operations.tex"));
         supportingFiles.add(new SupportingFile("models.mustache", "", "models.tex"));
-        
+
         apiTemplateFiles.put("api_doc.mustache", ".tex");
         modelTemplateFiles.put("model_doc.mustache", ".tex");
         reservedWords = new HashSet<>();
 
         languageSpecificPrimitives = new HashSet<>();
         importMapping = new HashMap<>();
+    }
+
+    @Override
+    protected void initializeSpecialCharacterMapping() {
+        // escape only those symbols that can mess up markdown
+        specialCharReplacements.put("_", "\\_");
     }
 
     /**
@@ -119,7 +130,7 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
     public String getHelp() {
         return "Generates a latex documentations.";
     }
-    
+
     @Override
     public String getTypeDeclaration(Schema p) {
         if (ModelUtils.isArraySchema(p)) {
@@ -147,7 +158,48 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
         }
         return objs;
     }
-   
+
+//    @Override
+//    public List<CodegenSecurity> fromSecurity(Map<String, SecurityScheme> schemes) {
+//        final List<CodegenSecurity> codegenSecurities = super.fromSecurity(schemes);
+//        
+//        for (CodegenSecurity codegenSecurity : codegenSecurities) {
+//            codegenSecurity.name = StringUtils.camelize(codegenSecurity.name);
+//        }
+//        
+//        return codegenSecurities;
+//    }    
+
+    public void processOpts() {
+        super.processOpts();
+
+    }
+    
+    @Override
+    public void postProcess() {
+        String latexCompileDocument = System.getenv("LATEX_COMPILE_DOCUMENT");
+        if (!StringUtils.isEmpty(latexCompileDocument)) {
+            // pdflatex
+            String command = latexCompileDocument + " index.tex";
+            try {
+                Process p = Runtime.getRuntime().exec(command, null, new File(outputFolder()));
+                int exitValue = p.waitFor();
+                if (exitValue != 0) {
+                    LOGGER.error("Error running the command ({}). Exit code: {}", command, exitValue);
+                } else {
+                    LOGGER.info("Successfully executed: {}", command);
+                }
+            } catch (InterruptedException | IOException e) {
+                LOGGER.error("Error running the command ({}). Exception: {}", command, e.getMessage());
+                // Restore interrupted state
+                Thread.currentThread().interrupt();
+            }
+        }
+        super.postProcess(); 
+    }
+    
+    
+    
     @Override
     public String escapeQuotationMark(String input) {
         // just return the original string
@@ -155,14 +207,8 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
     }
 
     @Override
-    public String escapeUnsafeCharacters(String input) {
-        // just return the original string
-        return input;
-    }
-
-    @Override
     public Compiler processCompiler(Compiler compiler) {
-        return compiler.withEscaper(Escapers.NONE).withDelims("<% %>");
+        return compiler.withEscaper(Escapers.NONE).withDelims("[[ ]]");
     }
 
     private Markdown markdownConverter = new Markdown();
@@ -185,21 +231,25 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
     // DefaultCodegen converts model names to UpperCamelCase
     // but for static HTML, we want the names to be preserved as coded in the
     // OpenApi
-    // so HTML links work
     @Override
     public String toModelName(final String name) {
-        return name;
+        if (reservedWords.contains(name)) {
+            return escapeReservedWord(name);
+        } else if (((CharSequence) name).chars()
+                .anyMatch(character -> specialCharReplacements.keySet().contains(String.valueOf((char) character)))) {
+            return escape(name, specialCharReplacements, null, null);
+        } else {
+            return name;
+        }
     }
 
-    // DefaultCodegen converts snake_case property names to snakeUnderscorecase
-    // but for static HTML, we want to preserve snake_case names
     @Override
     public String toVarName(String name) {
         if (reservedWords.contains(name)) {
             return escapeReservedWord(name);
         } else if (((CharSequence) name).chars()
                 .anyMatch(character -> specialCharReplacements.keySet().contains(String.valueOf((char) character)))) {
-            return escape(name, specialCharReplacements, Arrays.asList("_"), null);
+            return escape(name, specialCharReplacements, null, null);
         } else {
             return name;
         }
@@ -219,8 +269,8 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
         op.vendorExtensions.put("x-codegen-http-method-upper-case", methodUpperCase);
 
         return op;
-    }   
-    
+    }
+
     /**
      * Normalize type by wrapping primitive types with single quotes.
      *

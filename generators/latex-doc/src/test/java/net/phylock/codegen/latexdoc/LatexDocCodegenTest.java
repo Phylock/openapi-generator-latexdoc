@@ -1,5 +1,6 @@
 package net.phylock.codegen.latexdoc;
 
+import com.github.stefanbirkner.systemlambda.SystemLambda;
 import org.junit.Test;
 import org.openapitools.codegen.ClientOptInput;
 import org.openapitools.codegen.DefaultGenerator;
@@ -18,7 +19,7 @@ import org.openapitools.codegen.config.CodegenConfigurator;
  */
 public class LatexDocCodegenTest {
     @Test
-    public void launchCodeGenerator() {
+    public void launchCodeGenerator() throws Exception {
         final CodegenConfigurator configurator = new CodegenConfigurator()
                 .setGeneratorName("latex-doc") // use this codegen library
                 .setInputSpec(LatexDocCodegen.class.getResource("/petstore.yaml").toExternalForm())
@@ -26,7 +27,9 @@ public class LatexDocCodegenTest {
 
         final ClientOptInput clientOptInput = configurator.toClientOptInput();
         DefaultGenerator generator = new DefaultGenerator();
-        generator.opts(clientOptInput).generate();
+        SystemLambda.withEnvironmentVariable("LATEX_COMPILE_DOCUMENT", "pdflatex -interaction nonstopmode").execute(() -> { 
+            generator.opts(clientOptInput).generate();
+        });
     }
 }
 

@@ -8,15 +8,8 @@
 \usepackage{fancyhdr} % Required for custom headers
 \usepackage{lastpage} % Required to determine the last page for the footer
 \usepackage{extramarks} % Required for headers and footers
-\usepackage{graphicx} % Required to insert images
-\usepackage{listings} % Required for insertion of code
 \usepackage{courier} % Required for the courier font
-
-%debug packages
-\usepackage{showlabels}
-
-\usepackage{caption}
-\usepackage{hyperref}
+\usepackage{multirow}
 
 \lstset{
   basicstyle=\ttfamily,
@@ -63,16 +56,16 @@
       {]}{{{\color{delim}{]}}}}{1},
 }
 
-\title{<%appName%>}
-\date{<%generatedDate%>}
-\author{<%infoEmail%>}
+\title{[[appName]]}
+\date{[[generatedDate]]}
+\author{[[infoEmail]]}
 
 \hypersetup{
     colorlinks=true,
     linkcolor=blue,
     filecolor=magenta,      
     urlcolor=cyan,
-    pdftitle={<%appName%>}
+    pdftitle={[[appName]]}
     }
 
 %\urlstyle{same}
@@ -110,15 +103,15 @@
 	\tableofcontents
 	\newpage
 
-	\section{Introduction}\label{sec:introduction}
-    <%appDescription%>
+	\chapter{Introduction}\label{chp:introduction}
+    [[appDescription]]
 
-%	\section{Authentication}
+%	\chapter{Authentication}
 %	\input{authentication}
 
-	\section{Operations}\label{sec:operations}
+	\chapter{Operations}\label{chp:operations}
     \input{operations}
 
-    \section{Models}\label{sec:models}
+    \chapter{Models}\label{chp:models}
     \input{models}
 \end{document}

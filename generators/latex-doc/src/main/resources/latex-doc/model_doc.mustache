@@ -1,6 +1,6 @@
-<%#models%>
-<%#model%>
-\subsubsection{<%classname%>} \label{sec:models:<%classname%>}
+[[#models]]
+[[#model]]
+\section{[[classname]]} \label{sec:models:[[classname]]}
 
 \begin{table}[h!]
 \begin{center}
@@ -8,23 +8,23 @@
  \hline
  Name & Type & Description & Notes \\
 \hline
-<%#parent%>
-<%#parentVars%>
-<%name%><%#required%>*<%/required%> & <%#isPrimitiveType%><%dataType%><%/isPrimitiveType%><%^isPrimitiveType%><%dataType%>(<%complexType%>)<%/isPrimitiveType%> & <%description%> & <%#readOnly%>[readonly] <%/readOnly%><%#defaultValue%>[default to <%.%>]<%/defaultValue%> \\
-<%/parentVars%>
-<%/parent%>
-<%#vars%><%name%><%#required%>*<%/required%> & <%#isPrimitiveType%><%dataType%><%/isPrimitiveType%><%^isPrimitiveType%><%dataType%>(<%complexType%>)<%/isPrimitiveType%> & <%description%> & <%#readOnly%>[readonly] <%/readOnly%><%#defaultValue%>[default to <%.%>]<%/defaultValue%> \\
-<%/vars%>
+[[#parent]]
+[[#parentVars]]
+[[name]][[#required]]*[[/required]] & [[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]][[dataType]]([[complexType]])[[/isPrimitiveType]] & [[description]] & [[#readOnly]][readonly] [[/readOnly]][[#defaultValue]][default to [[.]]][[/defaultValue]] \\
+[[/parentVars]]
+[[/parent]]
+[[#vars]][[name]][[#required]]*[[/required]] & [[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]][[dataType]]([[complexType]])[[/isPrimitiveType]] & [[description]] & [[#readOnly]][readonly] [[/readOnly]][[#defaultValue]][default to [[.]]][[/defaultValue]] \\
+[[/vars]]
 \hline
 \end{tabular}
 \end{center}
-\caption{List of parameters available for <%classname%>}
+\caption{List of parameters available for [[classname]]}
 \end{table}
 
 \textbf{Schema}
-\begin{lstlisting}[language=json, title={A Schema of the <%classname%>}]
-<%modelJson%>
+\begin{lstlisting}[language=json, title={A Schema of the [[classname]]}]
+[[modelJson]]
 \end{lstlisting}
 
-    <%/model%>
-<%/models%>
+    [[/model]]
+[[/models]]

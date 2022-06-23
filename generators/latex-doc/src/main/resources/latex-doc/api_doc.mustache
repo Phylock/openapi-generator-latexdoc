@@ -1,61 +1,61 @@
-\subsection{<%classname%>}\label{sec:operations:<%classname%>}
+\section{[[classname]]}\label{sec:operations:[[classname]]}
 
-<%#description%>
-<%.%>
-<%/description%>
+[[#description]]
+[[.]]
+[[/description]]
 
-All URIs are relative to <%basePathWithoutHost%>
+All URIs are relative to [[basePathWithoutHost]]
 
 \begin{table}[h!]
 \begin{center}
-\begin{tabular}{ |l|l|l|l| } 
+\begin{tabular}{ |l|l|l| } 
  \hline
- Method & Method & Path & Description \\
+ Method & Method & Path \\
  \hline
-<%#operations%><%#operation%>\hyperref[sec:operations:<%classname%>:<%operationId%>]{<%operationId%>} & \textbf{<%#uppercase%><%httpMethod%><%/uppercase%>} & <%path%> & <%summary%> \\<%/operation%><%/operations%>
+[[#operations]][[#operation]]\hyperref[sec:operations:[[classname]]:[[operationId]]]{[[operationId]]} & \textbf{[[#uppercase]][[httpMethod]][[/uppercase]]} & [[path]] \\[[/operation]][[/operations]]
  \hline
 \end{tabular}
 \end{center}
-\caption{List of operations available in the <%classname%>}
-\label{tab:<%classname%>:operations}
+\caption{List of operations available in the [[classname]]}
+\label{tab:[[classname]]:operations}
 \end{table}
 
-<%#operations%>
-<%#operation%>
+[[#operations]]
+[[#operation]]
 
-\subsubsection{<%operationId%> (\emph{<%path%>})} \label{sec:operations:<%classname%>:<%operationId%>}
+\subsection{[[operationId]] (\emph{[[path]]})} \label{sec:operations:[[classname]]:[[operationId]]}
 
-<%summary%><%#notes%>
+[[summary]][[#notes]]
 
-<%.%><%/notes%>
+[[.]][[/notes]]
 
 \textbf{Parameters}
 
-<%^allParams%>This endpoint does not need any parameter.<%/allParams%><%#allParams%><%#-last%>
+[[^allParams]]This endpoint does not need any parameter.[[/allParams]][[#allParams]][[#-last]]
 \begin{table}[h!]
 \begin{center}
 \begin{tabular}{ |l|l|l|l| } 
  \hline
  Method & Type & Description & Notes \\
- \hline<%/-last%><%/allParams%>
-<%#allParams%> <%paramName%> & <%#isFile%><%dataType%><%/isFile%><%^isFile%><%#isPrimitiveType%><%dataType%><%/isPrimitiveType%><%^isPrimitiveType%>[<%dataType%>](<%baseType%>.md)<%/isPrimitiveType%><%/isFile%> & <%description%> &<%^required%> [optional]<%/required%><%#defaultValue%> [default to <%.%>]<%/defaultValue%> \\
-<%/allParams%>
-<%#allParams%><%#-last%>
+ \hline[[/-last]][[/allParams]]
+[[#allParams]] [[paramName]] & [[#isFile]][[dataType]][[/isFile]][[^isFile]][[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]][[dataType]]([[baseType]].md)[[/isPrimitiveType]][[/isFile]] & [[description]] &[[^required]] [optional][[/required]][[#defaultValue]] [default to [[.]]][[/defaultValue]] \\
+[[/allParams]]
+[[#allParams]][[#-last]]
 \hline
 \end{tabular}
 \end{center}
-\caption{List of parameters available for <%operationId%>}
-\label{tab:operations:<%classname%>:<%operationId%>:parameters}
+\caption{List of parameters available for [[operationId]]}
+\label{tab:operations:[[classname]]:[[operationId]]:parameters}
 \end{table}
-<%/-last%><%/allParams%>
+[[/-last]][[/allParams]]
 
 \textbf{Return type}
 
-<%#returnType%><%#returnTypeIsPrimitive%><%returnType%><%/returnTypeIsPrimitive%><%^returnTypeIsPrimitive%>[<%returnType%>](<%returnBaseType%>.md)<%/returnTypeIsPrimitive%><%/returnType%><%^returnType%>(empty response body)<%/returnType%>
+[[#returnType]][[#returnTypeIsPrimitive]][[returnType]][[/returnTypeIsPrimitive]][[^returnTypeIsPrimitive]][[returnType]]([[returnBaseType]].md)[[/returnTypeIsPrimitive]][[/returnType]][[^returnType]](empty response body)[[/returnType]]
 
 \textbf{Authorization}
 
-<%^authMethods%>No authorization required<%/authMethods%><%#authMethods%>\hyperref[sec:auth:<%name%>]{<%name%>}<%^-last%>, <%/-last%><%/authMethods%>
+[[^authMethods]]No authorization required[[/authMethods]][[#authMethods]]\hyperref[sec:auth:[[name]]]{[[name]]}[[^-last]], [[/-last]][[/authMethods]]
 
 \textbf{HTTP request headers}
 
@@ -63,19 +63,19 @@ All URIs are relative to <%basePathWithoutHost%>
 \begin{center}
 \begin{tabular}{ |l|l| } 
     \hline
-    Content-Type & \parbox{10cm}{<%#consumes%><%mediaType%><%^-last%> \\ <%/-last%><%/consumes%><%^consumes%>Not Applicable<%/consumes%>} \\
+    Content-Type & \parbox{10cm}{[[#consumes]][[mediaType]][[^-last]] \\ [[/-last]][[/consumes]][[^consumes]]Not Applicable[[/consumes]]} \\
     \hline
-    Accept & \parbox{10cm}{<%#produces%><%mediaType%><%^-last%> \\ <%/-last%><%/produces%><%^produces%>Not Applicable<%/produces%>} \\
+    Accept & \parbox{10cm}{[[#produces]][[mediaType]][[^-last]] \\ [[/-last]][[/produces]][[^produces]]Not Applicable[[/produces]]} \\
     \hline
 \end{tabular}
 \end{center}
 \caption{Request Headers}
-\label{tab:operations:<%classname%>:<%operationId%>:request_headers}
+\label{tab:operations:[[classname]]:[[operationId]]:requestHeaders}
 \end{table}
 
 \textbf{Example}
 
-<%>sample_curl%>
+[[>sample_curl]]
 
-<%/operation%>
-<%/operations%>
+[[/operation]]
+[[/operations]]

@@ -1,13 +1,48 @@
 \ProvidesClass{openapidoc}[2022/05/03 OpenAPI LaTeX class]
 \NeedsTeXFormat{LaTeX2e}
-\LoadClass{article}
+\LoadClass[oneside]{report}
+\let\cleardoublepage\clearpage
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{listings}
+\RequirePackage{hyperref}
+\RequirePackage{caption}
 
-\newcommand{\headlinecolor}{\normalcolor}
-\RequirePackage{xcolor}
-\definecolor{slcolor}{HTML}{882B21}
+\RequirePackage[left=2.25in,right=0.75in,top=1.5in,bottom=1.5in]{geometry}
+\RequirePackage{graphicx}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{amsthm, amsfonts, amsmath}
+\RequirePackage{thmtools}
+\RequirePackage{paralist}
+\RequirePackage{tikz}
+\RequirePackage[explicit]{titlesec}
+\RequirePackage{blindtext, xcolor}
+\RequirePackage[T1]{fontenc}
+\RequirePackage{mdframed}
+\RequirePackage{DejaVuSansCondensed}
+\RequirePackage[normalem]{ulem}
 
-\DeclareOption{onecolumn}{\OptionNotUsed}
-\DeclareOption{green}{\renewcommand{\headlinecolor}{\color{green}}}
-\DeclareOption{red}{\renewcommand{\headlinecolor}{\color{slcolor}}}
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
+\titleformat{\chapter}
+  {\normalfont\sffamily\Huge\scshape}
+  {}{0pt}
+  {\begin{tikzpicture}[remember picture,overlay]
+    \node[yshift=-3cm] at (current page.north west)
+      {\begin{tikzpicture}[remember picture, overlay]
+        \draw[fill=cyan] (0,-1) rectangle
+          (\paperwidth,3cm);
+        \node[anchor=west,xshift=.21\paperwidth,yshift=-.01\paperheight,rectangle]
+              {\color{white}\LARGE CHAPTER \Huge\thechapter};
+        \node[anchor=west,xshift=.21\paperwidth,yshift=-.065\paperheight,rectangle]
+              {\color{cyan}\Huge\MakeUppercase{#1}};
+       \end{tikzpicture}
+      };
+   \end{tikzpicture}
+  }
+\titlespacing*{\chapter}{0pt}{130pt}{0pt}{}
+
+\titleformat{\section}{\color{cyan}\itshape\LARGE}{\llap{\thesection} #1}{1em}{}
+\titleformat{\subsection}{\color{cyan}\normalfont\Large}{\; #1}{1em}{}
+
+\renewcommand*\familydefault{\sfdefault}
+
+\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
