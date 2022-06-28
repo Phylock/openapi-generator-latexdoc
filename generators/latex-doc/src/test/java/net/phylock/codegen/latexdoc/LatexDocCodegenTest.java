@@ -22,14 +22,15 @@ public class LatexDocCodegenTest {
     public void launchCodeGenerator() throws Exception {
         final CodegenConfigurator configurator = new CodegenConfigurator()
                 .setGeneratorName("latex-doc") // use this codegen library
-                .setInputSpec(LatexDocCodegen.class.getResource("/petstore.yaml").toExternalForm())
+                .setInputSpec(LatexDocCodegen.class.getResource("/petstore-ext.yaml").toExternalForm())
                 .setOutputDir("out/latex-doc"); // output directory
 
         final ClientOptInput clientOptInput = configurator.toClientOptInput();
         DefaultGenerator generator = new DefaultGenerator();
-        SystemLambda.withEnvironmentVariable("LATEX_COMPILE_DOCUMENT", "pdflatex -interaction nonstopmode").execute(() -> { 
-            generator.opts(clientOptInput).generate();
-        });
+//        SystemLambda.withEnvironmentVariable("LATEX_COMPILE_DOCUMENT", "pdflatex -interaction nonstopmode").execute(() -> { 
+//            generator.opts(clientOptInput).generate();
+//        });
+        generator.opts(clientOptInput).generate();
     }
 }
 

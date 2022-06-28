@@ -6,10 +6,11 @@
 
 All URIs are relative to [[basePathWithoutHost]]
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
 \begin{tabular}{ |l|l|l| } 
  \hline
+ \rowcolor{TableHeader}
  Method & Method & Path \\
  \hline
 [[#operations]][[#operation]]\hyperref[sec:operations:[[classname]]:[[operationId]]]{[[operationId]]} & \textbf{[[#uppercase]][[httpMethod]][[/uppercase]]} & [[path]] \\[[/operation]][[/operations]]
@@ -32,13 +33,17 @@ All URIs are relative to [[basePathWithoutHost]]
 \textbf{Parameters}
 
 [[^allParams]]This endpoint does not need any parameter.[[/allParams]][[#allParams]][[#-last]]
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{ |l|l|l|l| } 
+\begin{tabular}{ |l|l|l| } 
  \hline
- Method & Type & Description & Notes \\
+ \rowcolor{TableHeader}
+ Method & Type & Default \\
  \hline[[/-last]][[/allParams]]
-[[#allParams]] [[paramName]] & [[#isFile]][[dataType]][[/isFile]][[^isFile]][[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]][[dataType]]([[baseType]].md)[[/isPrimitiveType]][[/isFile]] & [[description]] &[[^required]] [optional][[/required]][[#defaultValue]] [default to [[.]]][[/defaultValue]] \\
+[[#allParams]] [[paramName]][[#required]]*[[/required]] & [[#isFile]][[dataType]][[/isFile]][[^isFile]][[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]][[dataType]]([[baseType]].md)[[/isPrimitiveType]][[/isFile]] & [[defaultValue]] \\
+[[#description]]\hline
+\multicolumn{3}{|l|}{\begin{minipage}{0.75\textwidth}[[.]]\end{minipage}} \\ 
+\hline[[/description]]
 [[/allParams]]
 [[#allParams]][[#-last]]
 \hline
@@ -59,9 +64,9 @@ All URIs are relative to [[basePathWithoutHost]]
 
 \textbf{HTTP request headers}
 
-\begin{table}[h!]
+\begin{table}[H]
 \begin{center}
-\begin{tabular}{ |l|l| } 
+\begin{tabular}{ |h|l| } 
     \hline
     Content-Type & \parbox{10cm}{[[#consumes]][[mediaType]][[^-last]] \\ [[/-last]][[/consumes]][[^consumes]]Not Applicable[[/consumes]]} \\
     \hline

@@ -1,48 +1,80 @@
 \ProvidesClass{openapidoc}[2022/05/03 OpenAPI LaTeX class]
 \NeedsTeXFormat{LaTeX2e}
+
+\RequirePackage{kvoptions}
+
+
+\DeclareStringOption[english]{lang}
+\DeclareStringOption{margin}
+\DeclareStringOption{parspacing}[6pt]
+\DeclareStringOption[6pt]{parskip}
+\DeclareStringOption{linespacing}[1.5]
+\DeclareStringOption[12pt]{fontsize}
+
+\DeclareStringOption{lefthead}
+\DeclareStringOption{righthead}
+\DeclareStringOption{leftfoot}
+\DeclareStringOption[\today]{rightfoot}[]
+
+\DeclareBoolOption{tightlists}
+
+\newif\ifgraphicsoption
+\DeclareVoidOption{graphics}{
+  \graphicsoptiontrue
+}
+
+\DeclareDefaultOption{
+  \PassOptionsToClass{\CurrentOption}{report}
+}
+
+\ExecuteOptions{a4paper,12pt}
+\ProcessKeyvalOptions*
 \LoadClass[oneside]{report}
+
 \let\cleardoublepage\clearpage
 \RequirePackage[dvipsnames]{xcolor}
-\RequirePackage{graphicx}
 \RequirePackage{listings}
-\RequirePackage{hyperref}
+\RequirePackage{colortbl}
 \RequirePackage{caption}
 
 \RequirePackage[left=2.25in,right=0.75in,top=1.5in,bottom=1.5in]{geometry}
 \RequirePackage{graphicx}
-\RequirePackage[hidelinks]{hyperref}
 \RequirePackage{amsthm, amsfonts, amsmath}
 \RequirePackage{thmtools}
 \RequirePackage{paralist}
 \RequirePackage{tikz}
 \RequirePackage[explicit]{titlesec}
-\RequirePackage{blindtext, xcolor}
+\RequirePackage{blindtext}
 \RequirePackage[T1]{fontenc}
 \RequirePackage{mdframed}
 \RequirePackage{DejaVuSansCondensed}
 \RequirePackage[normalem]{ulem}
+\RequirePackage{boldline} 
 
+%Colors
+\definecolor{ChapterHeader}{rgb}{0.45, 0.66, 0.76}
+
+\definecolor{TableHeader}{rgb}{0.45, 0.66, 0.76}
+\newcolumntype{h}{>{\columncolor{TableHeader}}l}
+
+%Chapter style
 \titleformat{\chapter}
   {\normalfont\sffamily\Huge\scshape}
   {}{0pt}
   {\begin{tikzpicture}[remember picture,overlay]
     \node[yshift=-3cm] at (current page.north west)
       {\begin{tikzpicture}[remember picture, overlay]
-        \draw[fill=cyan] (0,-1) rectangle
+        \draw[fill=ChapterHeader] (0,-1) rectangle
           (\paperwidth,3cm);
         \node[anchor=west,xshift=.21\paperwidth,yshift=-.01\paperheight,rectangle]
-              {\color{white}\LARGE CHAPTER \Huge\thechapter};
-        \node[anchor=west,xshift=.21\paperwidth,yshift=-.065\paperheight,rectangle]
-              {\color{cyan}\Huge\MakeUppercase{#1}};
+              {\color{white}\Huge\MakeUppercase{#1}};
        \end{tikzpicture}
       };
    \end{tikzpicture}
   }
-\titlespacing*{\chapter}{0pt}{130pt}{0pt}{}
+\titlespacing*{\chapter}{0pt}{70pt}{0pt}{}
 
 \titleformat{\section}{\color{cyan}\itshape\LARGE}{\llap{\thesection} #1}{1em}{}
 \titleformat{\subsection}{\color{cyan}\normalfont\Large}{\; #1}{1em}{}
 
 \renewcommand*\familydefault{\sfdefault}
-
-\DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
