@@ -1,6 +1,5 @@
 package net.phylock.codegen.latexdoc;
 
-import com.github.stefanbirkner.systemlambda.SystemLambda;
 import org.junit.Test;
 import org.openapitools.codegen.ClientOptInput;
 import org.openapitools.codegen.DefaultGenerator;
@@ -23,6 +22,7 @@ public class LatexDocCodegenTest {
         final CodegenConfigurator configurator = new CodegenConfigurator()
                 .setGeneratorName("latex-doc") // use this codegen library
                 .setInputSpec(LatexDocCodegen.class.getResource("/petstore-ext.yaml").toExternalForm())
+                //.setInputSpec(LatexDocCodegen.class.getResource("/openapi.json").toExternalForm())
                 .setOutputDir("out/latex-doc"); // output directory
 
         final ClientOptInput clientOptInput = configurator.toClientOptInput();

@@ -40,6 +40,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
+
     private final Logger LOGGER = LoggerFactory.getLogger(LatexDocCodegen.class);
     protected String invokerPackage = "org.openapitools.client";
     protected String groupId = "org.openapitools";
@@ -86,6 +87,7 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
         additionalProperties.put(CodegenConstants.ARTIFACT_VERSION, artifactVersion);
 
         additionalProperties.put("uppercase", new UppercaseLambda());
+        additionalProperties.put("labelsafe", new LabelSafeLambda());
 
         supportingFiles.add(new SupportingFile("openapidoc.mustache", "", "openapidoc.cls"));
         supportingFiles.add(new SupportingFile("index.mustache", "", "index.tex"));
@@ -97,18 +99,34 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
         modelTemplateFiles.put("model_doc.mustache", ".tex");
         reservedWords = new HashSet<>();
 
-        languageSpecificPrimitives = new HashSet<>();
-        importMapping = new HashMap<>();
+        languageSpecificPrimitives.clear();
+        languageSpecificPrimitives.add("ByteArray");
+        languageSpecificPrimitives.add("DateTime");
+        languageSpecificPrimitives.add("URI");
+        languageSpecificPrimitives.add("UUID");
+        languageSpecificPrimitives.add("boolean");
+        languageSpecificPrimitives.add("char");
+        languageSpecificPrimitives.add("date");
+        languageSpecificPrimitives.add("decimal");
+        languageSpecificPrimitives.add("double");
+        languageSpecificPrimitives.add("file");
+        languageSpecificPrimitives.add("float");
+        languageSpecificPrimitives.add("int");
+        languageSpecificPrimitives.add("integer");
+        languageSpecificPrimitives.add("long");
+        languageSpecificPrimitives.add("number");
+        languageSpecificPrimitives.add("object");
+        languageSpecificPrimitives.add("short");
+        languageSpecificPrimitives.add("string");
     }
 
     @Override
     protected void initializeSpecialCharacterMapping() {
         // escape only those symbols that can mess up markdown
-        specialCharReplacements.put("_", "\\_");
     }
 
     /**
-     * Convert Markdown (CommonMark) to HTML. This class also disables normal
+     * Convert Markdown (CommonMark) to Latex. This class also disables normal
      * HTML escaping in the Mustache engine.
      */
     @Override
@@ -169,12 +187,11 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
 //        
 //        return codegenSecurities;
 //    }    
-
     public void processOpts() {
         super.processOpts();
 
     }
-    
+
     @Override
     public void postProcess() {
         String latexCompileDocument = System.getenv("LATEX_COMPILE_DOCUMENT");
@@ -195,11 +212,9 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
                 Thread.currentThread().interrupt();
             }
         }
-        super.postProcess(); 
+        super.postProcess();
     }
-    
-    
-    
+
     @Override
     public String escapeQuotationMark(String input) {
         // just return the original string
@@ -213,8 +228,6 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
 
     private Markdown markdownConverter = new Markdown();
 
-    private static final boolean CONVERT_TO_MARKDOWN_VIA_ESCAPE_TEXT = false;
-
     /**
      * Convert Markdown text to Latex
      *
@@ -226,21 +239,6 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
             return "";
         }
         return markdownConverter.toLatex(input);
-    }
-
-    // DefaultCodegen converts model names to UpperCamelCase
-    // but for static HTML, we want the names to be preserved as coded in the
-    // OpenApi
-    @Override
-    public String toModelName(final String name) {
-        if (reservedWords.contains(name)) {
-            return escapeReservedWord(name);
-        } else if (((CharSequence) name).chars()
-                .anyMatch(character -> specialCharReplacements.keySet().contains(String.valueOf((char) character)))) {
-            return escape(name, specialCharReplacements, null, null);
-        } else {
-            return name;
-        }
     }
 
     @Override
@@ -297,4 +295,7 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
             model.setTitle(toLatex(model.getTitle()));
         }
     }
+    
+    @Override
+    public GeneratorLanguage generatorLanguage() { return null; }
 }

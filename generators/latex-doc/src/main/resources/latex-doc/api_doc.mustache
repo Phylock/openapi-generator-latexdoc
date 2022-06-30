@@ -1,4 +1,4 @@
-\section{[[classname]]}\label{sec:operations:[[classname]]}
+\section{[[classname]]}\label{[[#labelsafe]]sec:operations:[[classname]][[/labelsafe]]}
 
 [[#description]]
 [[.]]
@@ -13,22 +13,24 @@ All URIs are relative to [[basePathWithoutHost]]
  \rowcolor{TableHeader}
  Method & Method & Path \\
  \hline
-[[#operations]][[#operation]]\hyperref[sec:operations:[[classname]]:[[operationId]]]{[[operationId]]} & \textbf{[[#uppercase]][[httpMethod]][[/uppercase]]} & [[path]] \\[[/operation]][[/operations]]
+[[#operations]][[#operation]]\hyperref[ [[#labelsafe]]sec:operations:[[classname]]:[[operationId]][[/labelsafe]] ]{[[operationId]]} & \textbf{[[#uppercase]][[httpMethod]][[/uppercase]]} & [[path]] \\[[/operation]][[/operations]]
  \hline
 \end{tabular}
 \end{center}
 \caption{List of operations available in the [[classname]]}
-\label{tab:[[classname]]:operations}
+\label{[[#labelsafe]]tab:[[classname]]:operations[[/labelsafe]]}
 \end{table}
+
+
 
 [[#operations]]
 [[#operation]]
 
-\subsection{[[operationId]] (\emph{[[path]]})} \label{sec:operations:[[classname]]:[[operationId]]}
+\subsection{[[operationId]] (\emph{[[path]]})} \label{[[#labelsafe]]sec:operations:[[classname]]:[[operationId]][[/labelsafe]]}
 
-[[summary]][[#notes]]
+[[summary]][[#description]]
 
-[[.]][[/notes]]
+[[.]][[/description]]
 
 \textbf{Parameters}
 
@@ -40,27 +42,27 @@ All URIs are relative to [[basePathWithoutHost]]
  \rowcolor{TableHeader}
  Method & Type & Default \\
  \hline[[/-last]][[/allParams]]
-[[#allParams]] [[paramName]][[#required]]*[[/required]] & [[#isFile]][[dataType]][[/isFile]][[^isFile]][[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]]\hyperref[sec:models:[[dataType]]]{[[dataType]]}[[/isPrimitiveType]][[/isFile]] & [[defaultValue]] \\
-[[#description]]\hline
-\multicolumn{3}{|l|}{\begin{minipage}{0.75\textwidth}[[.]]\end{minipage}} \\ 
-\hline[[/description]]
+[[#allParams]] [[paramName]][[#required]]*[[/required]] & [[#isFile]][[dataType]][[/isFile]][[^isFile]][[#isPrimitiveType]][[dataType]][[/isPrimitiveType]][[^isPrimitiveType]]\hyperref[ [[#labelsafe]]sec:models:[[baseType]][[/labelsafe]] ]{[[dataType]]}[[/isPrimitiveType]][[/isFile]] & [[defaultValue]] \\
+\hline
+\cellcolor{TableHeader} & \multicolumn{2}{|l|}{\begin{minipage}{0.75\textwidth}[[^description]]No Description[[/description]][[#description]][[.]][[/description]]\end{minipage}} \\ 
+\hline
 [[/allParams]]
 [[#allParams]][[#-last]]
 \hline
 \end{tabular}
 \end{center}
 \caption{List of parameters available for [[operationId]]}
-\label{tab:operations:[[classname]]:[[operationId]]:parameters}
+\label{[[#labelsafe]]tab:operations:[[classname]]:[[operationId]]:parameters[[/labelsafe]]}
 \end{table}
 [[/-last]][[/allParams]]
 
 \textbf{Return type}
 
-[[#returnType]][[#returnTypeIsPrimitive]][[returnType]][[/returnTypeIsPrimitive]][[^returnTypeIsPrimitive]]\hyperref[sec:models:[[returnBaseType]]]{[[returnType]]}[[/returnTypeIsPrimitive]][[/returnType]][[^returnType]](empty response body)[[/returnType]]
+[[#returnType]][[#returnTypeIsPrimitive]][[returnType]][[/returnTypeIsPrimitive]][[^returnTypeIsPrimitive]]\hyperref[ [[#labelsafe]]sec:models:[[returnBaseType]][[/labelsafe]] ]{[[returnType]]}[[/returnTypeIsPrimitive]][[/returnType]][[^returnType]](empty response body)[[/returnType]]
 
 \textbf{Authorization}
 
-[[^authMethods]]No authorization required[[/authMethods]][[#authMethods]]\hyperref[sec:auth:[[name]]]{[[name]]}[[^-last]], [[/-last]][[/authMethods]]
+[[^authMethods]]No authorization required[[/authMethods]][[#authMethods]]\hyperref[ [[#labelsafe]]sec:auth:[[name]][[/labelsafe]] ]{[[name]]}[[^-last]], [[/-last]][[/authMethods]]
 
 \textbf{HTTP request headers}
 
@@ -75,7 +77,7 @@ All URIs are relative to [[basePathWithoutHost]]
 \end{tabular}
 \end{center}
 \caption{Request Headers}
-\label{tab:operations:[[classname]]:[[operationId]]:requestHeaders}
+\label{[[#labelsafe]]tab:operations:[[classname]]:[[operationId]]:requestHeaders[[/labelsafe]]}
 \end{table}
 
 \textbf{Example}

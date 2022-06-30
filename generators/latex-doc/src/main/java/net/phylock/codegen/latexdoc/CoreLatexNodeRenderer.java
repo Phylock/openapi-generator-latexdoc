@@ -83,15 +83,23 @@ public class CoreLatexNodeRenderer extends AbstractVisitor implements NodeRender
             writeEndOfLine();
         }
         listHolder = new BulletListHolder(listHolder, bulletList);
-        textContent.write("\\begin{itemize}\n");
+        textContent.write("\\begin{itemize}");
+        textContent.line();
         visitChildren(bulletList);
-        textContent.write("\n\\end{itemize}");
+        textContent.write("\\end{itemize}");
         writeEndOfLineIfNeeded(bulletList, null);
         if (listHolder.getParent() != null) {
             listHolder = listHolder.getParent();
         } else {
             listHolder = null;
         }
+    }
+
+    @Override
+    public void visit(Emphasis emphasis) {
+        textContent.write("\\emph{");
+        visitChildren(emphasis);
+        textContent.write("}");
     }
 
     @Override
@@ -124,9 +132,8 @@ public class CoreLatexNodeRenderer extends AbstractVisitor implements NodeRender
 
     @Override
     public void visit(ThematicBreak thematicBreak) {
-        if (!context.stripNewlines()) {
-            textContent.write("***");
-        }
+        textContent.line();
+        textContent.write("\\hrule");
         writeEndOfLineIfNeeded(thematicBreak, null);
     }
 
@@ -176,7 +183,6 @@ public class CoreLatexNodeRenderer extends AbstractVisitor implements NodeRender
             }
             visitChildren(listItem);
             textContent.line();
-            writeEndOfLineIfNeeded(listItem, null);
         }
     }
 
