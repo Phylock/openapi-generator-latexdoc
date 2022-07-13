@@ -223,7 +223,7 @@ public class LatexDocCodegen extends DefaultCodegen implements CodegenConfig {
 
     @Override
     public Compiler processCompiler(Compiler compiler) {
-        return compiler.withEscaper(Escapers.NONE).withDelims("[[ ]]");
+        return compiler.withEscaper(Escapers.NONE).withDelims("+[ ]+");
     }
 
     private Markdown markdownConverter = new Markdown();

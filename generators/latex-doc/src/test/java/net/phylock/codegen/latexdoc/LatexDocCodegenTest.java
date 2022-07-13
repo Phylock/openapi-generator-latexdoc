@@ -1,6 +1,10 @@
 package net.phylock.codegen.latexdoc;
 
+import java.util.Arrays;
+import java.util.Collection;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.openapitools.codegen.ClientOptInput;
 import org.openapitools.codegen.DefaultGenerator;
 import org.openapitools.codegen.config.CodegenConfigurator;
@@ -16,14 +20,30 @@ import org.openapitools.codegen.config.CodegenConfigurator;
  * launch this test in Eclipse: right-click | Debug As | JUnit Test
  *
  */
+@RunWith(Parameterized.class)
 public class LatexDocCodegenTest {
+
+    private String spec;
+    private String output;
+
+    public LatexDocCodegenTest(String spec, String output) {
+        this.spec = spec;
+        this.output = output;
+    }
+
+    @Parameterized.Parameters
+    public static Collection testSpecs() {
+        return Arrays.asList(new Object[][]{
+            {LatexDocCodegen.class.getResource("/petstore-ext.yaml").toExternalForm(), "out/petstore-ext"},
+            {LatexDocCodegen.class.getResource("/petstore.yaml").toExternalForm(), "out/petstore"},
+        });
+    }
+
     @Test
     public void launchCodeGenerator() throws Exception {
         final CodegenConfigurator configurator = new CodegenConfigurator()
-                .setGeneratorName("latex-doc") // use this codegen library
-                .setInputSpec(LatexDocCodegen.class.getResource("/petstore-ext.yaml").toExternalForm())
-                //.setInputSpec(LatexDocCodegen.class.getResource("/openapi.json").toExternalForm())
-                .setOutputDir("out/latex-doc"); // output directory
+                .setGeneratorName("latex-doc")
+                .setInputSpec(spec).setOutputDir(output);
 
         final ClientOptInput clientOptInput = configurator.toClientOptInput();
         DefaultGenerator generator = new DefaultGenerator();
@@ -33,6 +53,3 @@ public class LatexDocCodegenTest {
         generator.opts(clientOptInput).generate();
     }
 }
-
-
-
